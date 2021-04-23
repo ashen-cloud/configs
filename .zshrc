@@ -9,7 +9,7 @@ SAVEHIST=50000
 setopt appendhistory
 
 export KEYTIMEOUT=1
-export EDITOR="nvim"
+export EDITOR="vim"
 export TERM="xterm-256color"
 
 autoload -Uz vcs_info
