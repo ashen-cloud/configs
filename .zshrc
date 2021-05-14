@@ -35,6 +35,13 @@ autoload -Uz compinit && compinit
 autoload -U colors && colors
 zmodload zsh/complist
 
+# if type brew &>/dev/null; then
+#   FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+#   autoload -Uz compinit
+#   compinit
+# fi
+
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 export PATH="/opt/homebrew/opt/mongodb-community@3.4/bin:$PATH"

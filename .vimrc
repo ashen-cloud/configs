@@ -22,6 +22,8 @@ syntax on
 let g:nvcode_termcolors=256
 colorscheme peachpuff
 
+au BufRead,BufNewFile *.nunjucks set syntax=html
+
 let mapleader = "\<Space>"
 
 nnoremap <Leader>q :bd!<CR>
