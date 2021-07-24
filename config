@@ -1,0 +1,167 @@
+font pango: Awesome 10
+
+
+set $bg            #593b7a
+set $bg-inactive   #a0a0a0
+set $bg-urgent     #593b7a
+set $text          #eeeeec
+set $text-inactive #babdb6
+
+set $bar           #222222
+set $seperator     #444444
+set $statusline    #888A85
+
+#                       border        background   text           indicator
+client.focused          $bg           $bg          $text          $bar
+client.unfocused        $bg-inactive  $bg-inactive $text-inactive $bar
+client.focused_inactive $bg-inactive  $bg-inactive $text-inactive $bar
+client.urgent           $bg-urgent    $bg-urgent   $text          $bar
+
+
+
+bar {
+    font           pango:DejaVu Sans Mono, Awesome 11
+    position       top
+    status_command i3blocks -c ~/.config/i3blocks/config
+    # tray_output    -D-0
+
+    colors {
+        background              $bar
+        separator               $seperator
+        statusline              $statusline
+        active_workspace        $bg $bg $text
+        focused_workspace       $bg-urgent $bg $text
+        inactive_workspace      $seperator $seperator $text
+        urgent_workspace        $bg-urgent $bg-urgent $text
+    }
+}
+
+
+# Wallpaper
+output "*" bg ~/Pictures/mountains.jpg fill
+
+# input * {
+input type:keyboard {
+    xkb_layout pl,ru,ua
+    xkb_options grp:alt_shift_toggle,caps:ctrl_modifier
+}
+
+# Assign floating windows.
+for_window [window_role="^conversation$"] floating enable
+for_window [class="Insomnia|Pavucontrol|vlc"] floating enable
+
+# Remove the titlebar.
+for_window [class="^.*"] border pixel 1
+default_border pixel 2
+
+# Display monitor
+exec --no-startup-id kanshi &
+
+# Compositor
+exec --no-startup-id picom &
+
+# Night mode
+exec --no-startup-id redshift -P -O 3200
+
+# Launch the notification daemon.
+# exec --no-startup-id mako &
+
+# Set modifier to the Super key.
+set $mod Mod4
+
+# Application launcher.
+bindsym $mod+e exec --no-startup-id "rofi -show run"
+
+# Screenshot
+bindsym $mod+w exec grim -g "$(slurp)" - | wl-copy
+
+
+
+# Use Mouse+$mod to drag floating windows to their wanted position.
+floating_modifier $mod
+
+# Start apps
+bindsym $mod+Return exec kitty
+
+# Kill focused window.
+bindsym $mod+Shift+q kill
+
+# Change focus.
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# Move focused window.
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# Split in horizontal orientation.
+bindsym $mod+d split h
+
+# Split in vertical orientation.
+bindsym $mod+b split v
+
+# Enter fullscreen mode for the focused container.
+bindsym $mod+u fullscreen
+
+# Change container layout (stacked, tabbed, toggle split).
+bindsym $mod+o layout stacking
+bindsym $mod+z layout tabbed
+bindsym $mod+x layout toggle split
+
+# Toggle tiling / floating.
+bindsym $mod+Shift+space floating toggle
+
+# Change focus between tiling / floating windows.
+bindsym $mod+space focus mode_toggle
+
+# Focus the parent container.
+bindsym $mod+a focus parent
+
+# Switch to workspace.
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+
+# Move focused container to workspace.
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+
+# Special keys
+bindsym XF86AudioMute        exec amixer set Master toggle
+bindsym XF86AudioLowerVolume exec amixer set Master 2%- unmute
+bindsym XF86AudioRaiseVolume exec amixer set Master 2%+ unmute
+bindsym XF86AudioPrev        exec playerctl previous
+bindsym XF86AudioPlay        exec playerctl play-pause
+bindsym XF86AudioNext        exec playerctl next
+
+# Reload the configuration file.
+bindsym $mod+Shift+comma reload
+
+# Restart i3 inplace
+bindsym $mod+Shift+p restart
+
+# Resize window
+mode "resize" {
+  bindsym l resize shrink width 10 px or 10 ppt
+  bindsym k resize grow height 10 px or 10 ppt
+  bindsym j resize shrink height 10 px or 10 ppt
+  bindsym h resize grow width 10 px or 10 ppt
+  
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+
+bindsym $mod+p mode "resize"
