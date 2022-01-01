@@ -4,11 +4,9 @@ set noswapfile
 set background=dark
 set number relativenumber
 set ruler
-set undofile
-set undodir=~/.vim/undodir
 set autoindent
 set nocompatible
-set redrawtime=10000
+set redrawtime=100000000
 
 filetype plugin indent on
 
@@ -22,9 +20,8 @@ syntax on
 let g:nvcode_termcolors=256
 colorscheme peachpuff
 
-au BufRead,BufNewFile *.nunjucks set syntax=html
-
-let mapleader = "\<Space>"
-
-nnoremap <Leader>q :bd!<CR>
+call plug#begin('~/.vim/plugged')
+  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+  Plug 'junegunn/fzf.vim'
+call plug#end()
 
